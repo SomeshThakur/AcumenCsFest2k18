@@ -7,6 +7,16 @@
     tools:context="test.androidapp.com.acumencsfest.QRActivity">
 
 
+    <Button
+        android:id="@+id/regenerateBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="Regenerate QR"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/colorWhite"
+        android:padding="10dp"
+        android:layout_margin="20dp"/>
 
     <ImageView
         android:layout_centerInParent="true"

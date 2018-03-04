@@ -7,6 +7,8 @@ import android.graphics.BitmapFactory;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -31,6 +33,7 @@ public class QRActivity extends AppCompatActivity {
     public final static int QRcodeWidth = 1000;
     private ImageView myImage;
     private String value;
+    Button regenerateBtn;
 
 
     @Override
@@ -41,9 +44,10 @@ public class QRActivity extends AppCompatActivity {
 
 
         myImage = (ImageView) findViewById(R.id.QR);
+        regenerateBtn = findViewById(R.id.regenerateBtn);
 
 
-        File imgFile = new File(Environment.getExternalStorageDirectory()
+        final File imgFile = new File(Environment.getExternalStorageDirectory()
                 + "/Android/data/"
                 + getApplicationContext().getPackageName()
                 + "/Files/QR_Acumen.jpg");
@@ -83,6 +87,32 @@ public class QRActivity extends AppCompatActivity {
             pd.cancel();
 
         }
+
+
+        regenerateBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0);
+                SharedPreferences.Editor editor = pref.edit();
+
+
+                Long v = pref.getLong("user_number", 0);
+                String value = new Long(v).toString();
+
+                try {
+                    TextToImageEncode(value);
+                } catch (WriterException e) {
+                    e.printStackTrace();
+                }
+
+                Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+                myImage.setImageBitmap(myBitmap);
+
+                Toast.makeText(QRActivity.this,"Regenrated QR",Toast.LENGTH_LONG).show();
+
+            }
+        });
 
 
     }

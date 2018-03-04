@@ -106,7 +106,7 @@ public class RegisterActivity extends AppCompatActivity {
                             SharedPreferences.Editor editor = pref.edit();
 
                             editor.putLong("user_number",usercount+1);
-                            editor.commit();
+                            editor.apply();
 
 
                         }
@@ -124,6 +124,7 @@ public class RegisterActivity extends AppCompatActivity {
                     dref.child("Phone_Number").setValue(phNum);
                     dref.child("Department").setValue(dept);
                     dref.child("UserMsgCount").setValue(0);
+                    dref.child("Wallet").setValue(0);
                     dref = dref.child("events");
 
                     for (int i = 1; i <= 21; i++) {
