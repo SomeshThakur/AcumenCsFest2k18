@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">AcumenCSFest</string>
+    <string name="sign_in_text">Sign in With Google Account</string>
+    <string name="register_text">Fill In Your Details</string>
+</resources>
