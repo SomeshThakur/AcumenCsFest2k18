@@ -1,9 +1,11 @@
 package test.androidapp.com.acumencsfest;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -22,6 +24,7 @@ import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
+import com.journeyapps.barcodescanner.BarcodeEncoder;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -43,8 +46,9 @@ public class QRActivity extends AppCompatActivity {
         ProgressDialog pd = new ProgressDialog(QRActivity.this);
 
 
+
+
         myImage = (ImageView) findViewById(R.id.QR);
-        regenerateBtn = findViewById(R.id.regenerateBtn);
 
 
         final File imgFile = new File(Environment.getExternalStorageDirectory()
@@ -59,39 +63,12 @@ public class QRActivity extends AppCompatActivity {
 
             myImage.setImageBitmap(myBitmap);
 
-        } else {
+        }
+        else {
 
-
-            pd.setTitle("QR processing");
-            pd.setMessage("Generating QR...");
-            pd.setCancelable(false);
-            pd.show();
-            //Toast.makeText(this,"generating qr",Toast.LENGTH_LONG).show();
-
-
-            SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0);
-            SharedPreferences.Editor editor = pref.edit();
-
-
-            Long v = pref.getLong("user_number", 0);
-            String value = new Long(v).toString();
 
             try {
-                TextToImageEncode(value);
-            } catch (WriterException e) {
-                e.printStackTrace();
-            }
 
-            Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
-            myImage.setImageBitmap(myBitmap);
-            pd.cancel();
-
-        }
-
-
-        regenerateBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
                 SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0);
                 SharedPreferences.Editor editor = pref.edit();
@@ -100,64 +77,24 @@ public class QRActivity extends AppCompatActivity {
                 Long v = pref.getLong("user_number", 0);
                 String value = new Long(v).toString();
 
-                try {
-                    TextToImageEncode(value);
-                } catch (WriterException e) {
-                    e.printStackTrace();
-                }
+                MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
+                BitMatrix bitMatrix = null;
+                bitMatrix = multiFormatWriter.encode(value, BarcodeFormat.QR_CODE,QRcodeWidth,QRcodeWidth);
+                BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
+                Bitmap bitmap = barcodeEncoder.createBitmap(bitMatrix);
 
-                Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
-                myImage.setImageBitmap(myBitmap);
+                storeImage(bitmap);
+                myImage.setImageBitmap(bitmap);
 
-                Toast.makeText(QRActivity.this,"Regenrated QR",Toast.LENGTH_LONG).show();
 
+            } catch (WriterException e) {
+                e.printStackTrace();
             }
-        });
 
 
-    }
-
-
-    //the function creates a qr for uaser number of each user and returns bitmap
-    void TextToImageEncode(String Value) throws WriterException {
-
-
-        BitMatrix bitMatrix;
-        try {
-            bitMatrix = new MultiFormatWriter().encode(
-                    Value,
-                    BarcodeFormat.DATA_MATRIX.QR_CODE,
-                    QRcodeWidth, QRcodeWidth, null
-            );
-
-        } catch (IllegalArgumentException Illegalargumentexception) {
-
-            return;
         }
-        int bitMatrixWidth = bitMatrix.getWidth();
 
-        int bitMatrixHeight = bitMatrix.getHeight();
 
-        int[] pixels = new int[bitMatrixWidth * bitMatrixHeight];
-
-        for (int y = 0; y < bitMatrixHeight; y++) {
-            int offset = y * bitMatrixWidth;
-
-            for (int x = 0; x < bitMatrixWidth; x++) {
-
-                pixels[offset + x] = bitMatrix.get(x, y) ?
-                        getResources().getColor(R.color.qrBlack) : getResources().getColor(R.color.colorWhite);
-            }
-        }
-        Bitmap bitmap = Bitmap.createBitmap(bitMatrixWidth, bitMatrixHeight, Bitmap.Config.ARGB_4444);
-
-        bitmap.setPixels(pixels, 0, 1000, 0, 0, bitMatrixWidth, bitMatrixHeight);
-
-        //myImage.setImageBitmap(bitmap);
-
-        storeImage(bitmap);
-
-        return;
     }
 
 
@@ -207,6 +144,5 @@ public class QRActivity extends AppCompatActivity {
 
         return mediaFile;
     }
-
 
 }
