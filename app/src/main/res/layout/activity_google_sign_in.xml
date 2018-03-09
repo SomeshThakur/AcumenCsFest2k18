@@ -3,51 +3,41 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="test.androidapp.com.acumencsfest.RegisterActivity">
+    android:gravity="center"
+    tools:context=".RegisterActivity">
 
 
-    <RelativeLayout
-        android:id="@+id/relativeLayout"
+    <ImageView
+        android:id="@+id/bot"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true">
+        android:layout_centerHorizontal="true"
+        android:adjustViewBounds="true"
+        android:maxHeight="200dp"
+        android:maxWidth="200dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/acumen_bot" />
 
-        <ImageView
+    <TextView
+        android:id="@+id/signinText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/bot"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:fontFamily="cursive"
+        android:text="@string/sign_in_text"
+        android:textColor="#000"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
-            android:id="@+id/bot"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:adjustViewBounds="true"
-            android:maxHeight="200dp"
-            android:maxWidth="200dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/acumen_bot" />
-
-        <TextView
-            android:id="@+id/signinText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/bot"
-            android:layout_centerHorizontal="true"
-            android:fontFamily="cursive"
-            android:text="@string/sign_in_text"
-            android:textColor="#000"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:layout_marginBottom="10dp"/>
-
-        <com.google.android.gms.common.SignInButton
-            android:id="@+id/siginBtn"
-            android:layout_width="match_parent"
-            android:layout_height="75dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/signinText"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp" />
-
-    </RelativeLayout>
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/siginBtn"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:layout_below="@+id/signinText"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp" />
 
 
 </RelativeLayout>

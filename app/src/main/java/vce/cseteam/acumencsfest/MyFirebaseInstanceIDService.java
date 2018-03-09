@@ -1,4 +1,4 @@
-package test.androidapp.com.acumencsfest;
+package vce.cseteam.acumencsfest;
 
 import android.util.Log;
 
@@ -14,7 +14,7 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
     @Override
     public void onTokenRefresh() {
         super.onTokenRefresh();
-        String Token=FirebaseInstanceId.getInstance().getToken();
-        Log.d("mylog","MyToken is :"+Token);
+        String Token = FirebaseInstanceId.getInstance().getToken();
+        Log.d("mylog", "MyToken is :" + Token);
     }
 }

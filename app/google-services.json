@@ -259,11 +259,190 @@
       },
       "oauth_client": [
         {
+          "client_id": "382269294022-1bas3kg9tug41kk1g7pvt2rbh8v1l2hv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "test.androidapp.com.acumencsfest",
+            "certificate_hash": "cf94170cb20ec711e907e179db55b5603266e527"
+          }
+        },
+        {
           "client_id": "382269294022-qsahbfb3ri4ons9c6a2m094nh1uk1pc9.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "test.androidapp.com.acumencsfest",
             "certificate_hash": "ec6967dad7cf3285f0321e0afb0e9cd775a09f92"
+          }
+        },
+        {
+          "client_id": "382269294022-ahhmvbi90mka2e9qjek5r9ajbl1mjvqu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDPecdL79-UbrPLwdlE2Slrpc-lGH2cZLQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "382269294022-ahhmvbi90mka2e9qjek5r9ajbl1mjvqu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:382269294022:android:a0b24476a77f8748",
+        "android_client_info": {
+          "package_name": "com.vasavi.depositdeskapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "382269294022-2ss1kmqmeh9l8odipf34k1ahar198uep.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.vasavi.depositdeskapp",
+            "certificate_hash": "54905ea49673444d2b9905b5b633eb6c907482bb"
+          }
+        },
+        {
+          "client_id": "382269294022-ahhmvbi90mka2e9qjek5r9ajbl1mjvqu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDPecdL79-UbrPLwdlE2Slrpc-lGH2cZLQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "382269294022-ahhmvbi90mka2e9qjek5r9ajbl1mjvqu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:382269294022:android:344ba2aec9345682",
+        "android_client_info": {
+          "package_name": "com.acumen.vasavi.deposit_desk"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "382269294022-457572btbl2vk06234nc5d8m8to7p4ck.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.acumen.vasavi.deposit_desk",
+            "certificate_hash": "3cf9f343ad797d85ad6f21c86c0abf4c5bdb6e0b"
+          }
+        },
+        {
+          "client_id": "382269294022-ahhmvbi90mka2e9qjek5r9ajbl1mjvqu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDPecdL79-UbrPLwdlE2Slrpc-lGH2cZLQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "382269294022-ahhmvbi90mka2e9qjek5r9ajbl1mjvqu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:382269294022:android:7e2ef5f071206beb",
+        "android_client_info": {
+          "package_name": "vce.cseteam.acumencsfest2018"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "382269294022-ahhmvbi90mka2e9qjek5r9ajbl1mjvqu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDPecdL79-UbrPLwdlE2Slrpc-lGH2cZLQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:382269294022:android:6202a2fcf3679238",
+        "android_client_info": {
+          "package_name": "vce.cseteam.acumencsfest"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "382269294022-i1jb61hc45ss4daf6nv4j4pa1ab5589k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "vce.cseteam.acumencsfest",
+            "certificate_hash": "57eb60ae853f9a55febf5c98fe9ad19ede8861bc"
+          }
+        },
+        {
+          "client_id": "382269294022-ve78c3rnp79m3tkij21io4jsj1reat84.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "vce.cseteam.acumencsfest",
+            "certificate_hash": "cf94170cb20ec711e907e179db55b5603266e527"
           }
         },
         {

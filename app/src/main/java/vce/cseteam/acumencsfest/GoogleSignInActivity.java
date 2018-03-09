@@ -1,5 +1,4 @@
-package test.androidapp.com.acumencsfest;
-
+package vce.cseteam.acumencsfest;
 
 
 import android.app.ProgressDialog;
@@ -27,11 +26,6 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 public class GoogleSignInActivity extends AppCompatActivity {
     private static final int RC_SIGN_IN = 1;
@@ -40,9 +34,6 @@ public class GoogleSignInActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private ProgressDialog mProgressDialog;
-    private DatabaseReference databaseReference;
-    private String Uid;
-    int count = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,9 +46,11 @@ public class GoogleSignInActivity extends AppCompatActivity {
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                hideProgressDialog();
                 if (firebaseAuth.getCurrentUser() != null) {
-                    checkUserExist();
+                    Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                    hideProgressDialog();
+                    startActivity(i);
+                    finish();
                 }
             }
         };
@@ -171,34 +164,5 @@ public class GoogleSignInActivity extends AppCompatActivity {
 
                     }
                 });
-    }
-
-    private void checkUserExist() {
-
-        Uid = mAuth.getCurrentUser().getUid();
-
-        databaseReference = FirebaseDatabase.getInstance().getReference().child("users");
-
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.hasChild(Uid)) {
-                    if (count == 0) {
-                        Intent i = new Intent(getApplicationContext(), MainActivity.class);
-                        count = 1;
-                        startActivity(i);
-                        finish();
-                    }
-                } else {
-                    startActivity(new Intent(getApplicationContext(), RegisterActivity.class));
-                    finish();
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
     }
 }
