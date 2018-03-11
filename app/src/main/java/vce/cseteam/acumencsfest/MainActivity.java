@@ -15,6 +15,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.webkit.WebChromeClient;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.Toast;
 
@@ -37,8 +38,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getSupportActionBar().hide();
-        SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
-        usercount = pref.getLong("user_number", 0);
 
 
         if (isNetworkAvailable()) {
@@ -48,76 +47,100 @@ public class MainActivity extends AppCompatActivity {
                 //if user is not logged in
                 startActivity(new Intent(MainActivity.this, GoogleSignInActivity.class));
                 finish();
-            } else if (usercount == 0) {
-                startActivity(new Intent(MainActivity.this, RegisterActivity.class));
-                finish();
             } else {
+                SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
+                usercount = pref.getLong("user_number", -1);
 
-                //checking for permissions
-                while (!CheckPermission())
-                    CheckPermission();
+                if (usercount == -1) {
+                    startActivity(new Intent(MainActivity.this, RegisterActivity.class));
+                    finish();
 
+                } else {
 
-                //connecting to web view
-                webView = findViewById(R.id.webView);
-                DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-                qrBtn = findViewById(R.id.qrBtn);
-                eventsBtn = findViewById(R.id.eventbtn);
-                webView.getSettings().setJavaScriptEnabled(true);
-
-                qrBtn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        startActivity(new Intent(MainActivity.this, QRActivity.class));
-
-                    }
-                });
+                    //checking for permissions
+                    while (!CheckPermission())
+                        CheckPermission();
 
 
-                eventsBtn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        startActivity(new Intent(MainActivity.this, EventsListActivity.class));
+                    //connecting to web view
+                    webView = findViewById(R.id.webView);
+                    DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+                    qrBtn = findViewById(R.id.qrBtn);
+                    eventsBtn = findViewById(R.id.eventbtn);
+                    //s webView.getSettings().setJavaScriptEnabled(true);
 
-                    }
-                });
+                    qrBtn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
 
-                pd = new ProgressDialog(this);
-                pd.setMessage("Personalizing Your Assistant Please Wait...");
-                pd.setCancelable(false);
-                pd.show();
+                            startActivity(new Intent(MainActivity.this, QRActivity.class));
 
-                webView.setWebChromeClient(new WebChromeClient() {
-
-                    @Override
-                    public void onProgressChanged(WebView view, int newProgress) {
-                        if (newProgress == 100) {
-                            pd.dismiss();
                         }
-                    }
-                });
-
-                //getting the url into urlVal variable
-
-                mDatabase.child("webLink").addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-
-                        urlVal = (String) dataSnapshot.getValue();
-
-                        webView.loadUrl(urlVal);
-
-                    }
+                    });
 
 
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
+                    eventsBtn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            startActivity(new Intent(MainActivity.this, EventsListActivity.class));
 
-                    }
-                });
+                        }
+                    });
+
+                    pd = new ProgressDialog(this);
+                    pd.setMessage("Personalizing Your Assistant Please Wait...");
+                    pd.setCancelable(false);
+                    pd.show();
+
+                    webView.setWebChromeClient(new WebChromeClient() {
+
+                        @Override
+                        public void onProgressChanged(WebView view, int newProgress) {
+                            if (newProgress == 100) {
+                                pd.dismiss();
+                            }
+                        }
+                    });
+
+                    WebSettings settings = webView.getSettings();
+                    settings.setJavaScriptEnabled(true);
+//                    settings.setLoadWithOverviewMode(true);
+//                    settings.setUseWideViewPort(true);
+//                    //settings.setSupportZoom(true);
+//                    settings.setBuiltInZoomControls(false);
+//                    settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+//                    settings.setCacheMode(WebSettings.LOAD_NO_CACHE);
+//                    settings.setDomStorageEnabled(true);
+//                    //   webView.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
+//                    //   webView.setScrollbarFadingEnabled(true);
+//                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+//                        webView.setLayerType(View.LAYER_TYPE_HARDWARE, null);
+//                    } else {
+//                        webView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+//                    }
 
 
+                    //getting the url into urlVal variable
+
+                    mDatabase.child("webLink").addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+
+                            urlVal = (String) dataSnapshot.getValue();
+
+                            webView.loadUrl(urlVal);
+
+                        }
+
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+
+
+                }
             }
 
         } else {

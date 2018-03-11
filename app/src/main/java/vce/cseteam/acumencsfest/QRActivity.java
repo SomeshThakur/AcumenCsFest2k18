@@ -33,7 +33,6 @@ public class QRActivity extends AppCompatActivity {
     public final static int QRcodeWidth = 1000;
     private ImageView myImage;
     private TextView walletbalance;
-    private String value;
     private DatabaseReference databaseReference;
     private String l;
     private ProgressBar pb;
@@ -108,7 +107,7 @@ public class QRActivity extends AppCompatActivity {
     private String retrievewallet() {
         DatabaseReference databaseReference1 = FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("Wallet");
         final String[] wallet = new String[1];
-        databaseReference1.addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseReference1.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 walletbalance.setText("Your wallet Balance : " + dataSnapshot.getValue());

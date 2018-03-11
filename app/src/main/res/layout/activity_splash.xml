@@ -8,10 +8,11 @@
 
     <ImageView
         android:id="@+id/csImg"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_above="@+id/acumenlogo"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="25dp"
         android:padding="10dp"
         android:scaleType="fitXY"
         android:src="@drawable/acumencs"
@@ -22,6 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
+        android:layout_marginTop="15dp"
         android:fontFamily="serif"
         android:gravity="center"
         android:text="ACUMEN CS FEST 2K18"

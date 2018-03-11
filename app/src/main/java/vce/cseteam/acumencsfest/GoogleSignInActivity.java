@@ -4,6 +4,7 @@ package vce.cseteam.acumencsfest;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
@@ -26,6 +27,11 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class GoogleSignInActivity extends AppCompatActivity {
     private static final int RC_SIGN_IN = 1;
@@ -34,6 +40,9 @@ public class GoogleSignInActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private ProgressDialog mProgressDialog;
+    DatabaseReference mdatabase2;
+    SharedPreferences.Editor editor;
+    SharedPreferences pref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,16 +50,35 @@ public class GoogleSignInActivity extends AppCompatActivity {
         setContentView(R.layout.activity_google_sign_in);
         getSupportActionBar().hide();
 
+        pref = getApplicationContext().getSharedPreferences("MyPref", 0);
+        editor = pref.edit();
+
         mAuth = FirebaseAuth.getInstance();
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 if (firebaseAuth.getCurrentUser() != null) {
-                    Intent i = new Intent(getApplicationContext(), MainActivity.class);
-                    hideProgressDialog();
-                    startActivity(i);
-                    finish();
+                    mdatabase2 = FirebaseDatabase.getInstance().getReference().child("users");
+                    mdatabase2.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            if (dataSnapshot.hasChild(FirebaseAuth.getInstance().getCurrentUser().getUid())) {
+                                editor.putLong("user_number", 1);
+                                editor.apply();
+
+                            }
+                            Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                            hideProgressDialog();
+                            startActivity(i);
+                            finish();
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
                 }
             }
         };
@@ -141,6 +169,12 @@ public class GoogleSignInActivity extends AppCompatActivity {
             }
         }
     }
+
+
+    private void checkUserregistereed() {
+
+    }
+
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount account) {
 

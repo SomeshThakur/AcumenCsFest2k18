@@ -70,10 +70,10 @@ public class RegisterActivity extends AppCompatActivity {
                     Toast.makeText(RegisterActivity.this, "Enter your College Name", Toast.LENGTH_LONG).show();
                 } else if (dept.trim().isEmpty()) {
                     Toast.makeText(RegisterActivity.this, "Enter your Department", Toast.LENGTH_LONG).show();
-                } else if (phNum.trim().isEmpty() || phNum.matches("^[0-9]{11}$")) {
+                } else if (phNum.trim().isEmpty() || phNum.length() != 10 || checkNumber(phNum)) {
                     Toast.makeText(RegisterActivity.this, "Enter a valid Phone number", Toast.LENGTH_LONG).show();
                 } else if (yr.trim().isEmpty() || !(Integer.parseInt(yr) > 0 && Integer.parseInt(yr) < 5)) {
-                    Toast.makeText(RegisterActivity.this, "Enter a valid Year", Toast.LENGTH_LONG).show();
+                    Toast.makeText(RegisterActivity.this, "Enter a valid current studying Year", Toast.LENGTH_LONG).show();
                 } else {
                     pd.show();
                     final DatabaseReference dref = mDatabase.getReference().child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
@@ -115,6 +115,10 @@ public class RegisterActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private boolean checkNumber(String phNum) {
+        return !(phNum.startsWith("6") || phNum.startsWith("7") || phNum.startsWith("8") || phNum.startsWith("9"));
     }
 
     private void callMain() {

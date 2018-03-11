@@ -9,7 +9,6 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.view.KeyEvent;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -18,13 +17,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class SponsorSplashActivity extends AppCompatActivity {
+    DatabaseReference mdatabase;
+    SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sponsor_splash);
         getSupportActionBar().hide();
-        DatabaseReference mdatabase;
         final SharedPreferences pref;
 
 
@@ -38,13 +38,12 @@ public class SponsorSplashActivity extends AppCompatActivity {
         }
 
         pref = getApplicationContext().getSharedPreferences("MyPref", 0);
-
+        editor = pref.edit();
         mdatabase = FirebaseDatabase.getInstance().getReference().child("logoVisible");
 
         mdatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                SharedPreferences.Editor editor = pref.edit();
                 editor.putBoolean("logo_visible", (Boolean) dataSnapshot.getValue());
                 editor.apply();
                 callNextActivity();
